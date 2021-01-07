@@ -1,0 +1,30 @@
+EXERCISE:
+
+Please create a user signup form prototype. Preference is for the code to be done using Reactjs, but you can also feel free to use vanillajs. 
+We are currently utilizing reactjs v16.8 for development.
+
+The requirements are:
+
+1. create a form with 3 input fields, 
+for the username, password and confirm password respectively
+
+2. persist the state of the input fields entries
+
+3. the password and confirm password input field should valid there entries by comparing both values
+
+4. output to the user when both field match or dont match
+
+5. bonus would be to style the form
+
+Here is some feedback we got on someone’s unsuccessful assessment to give you an idea of what they’re looking for:
+
+“Yes, while this solves the problem, there are some patterns based on the version of reactjs chosen that are a little off. 
+He uses an onclick for the form submit instead of the form attribute onSubmit. 
+He wouldnt have needed to pass the state setter as arguments 
+if he had maintained his methods geared to update the state within scope. 
+He's using hooks which he could have better demonstrated with state management. 
+He's passing props to the App component when there are no props being used or passed in when the component is mounted. 
+This logic is over convoluted - (!!str1 && !!str2) 
+&& (str1.length === str2.length) && str1.includes(str2)
+
+ These are some of the bigger issues here.”

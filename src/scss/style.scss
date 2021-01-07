@@ -1,0 +1,40 @@
+@import "./_variables";
+@import "./_spacing";
+@import "./_display";
+@import "./_typography";
+
+body {
+    @include font-style();
+    background: #f1f1f1;
+}
+
+// Input Textarea
+input, 
+textarea, 
+select{
+    border: $input--border;
+    border-radius: $radius;
+    @include font-style();
+    @include input-padding(0.5);
+    &:not([type="radio"]){
+        width: 100%;
+    }
+}
+label{
+    margin-bottom: 0.5rem;
+    display: block;
+}
+label[for]{
+    margin-right: 0.5rem;
+}
+.float--right{
+    float: right
+}
+.stamped--bottom-right{
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+.tst{
+    font-weight: bolder;
+}

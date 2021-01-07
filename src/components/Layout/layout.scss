@@ -1,0 +1,26 @@
+@import "Scss/_variables";
+.card{
+    display: block;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: $radius;
+}
+.column{
+    display: inline-block;
+    vertical-align: top;
+    &.col-12{
+        width: 100%;
+    }
+    &.col-4{
+        width: 25%;
+    }
+    &.col-3{
+        width: 33.33%;
+    }
+}
+.flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

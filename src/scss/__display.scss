@@ -1,0 +1,18 @@
+$types: "block", "inline-block", "inline";
+$alignment: "top", "middle", "bottom";
+@mixin display-modifiers() {
+    @each $type in $types {
+        .display--#{$type}{
+            display: #{$type};
+        }
+    }
+}
+@mixin vertical-align-modifiers() {
+    @each $align in $alignment {
+        .vertical-align--#{$align}{
+            vertical-align: #{$align};
+        }
+    }
+}
+@include display-modifiers();
+@include vertical-align-modifiers();

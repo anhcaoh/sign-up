@@ -1,0 +1,83 @@
+{
+    "id": "signUp",
+    "heading": "Sign Up",
+    "label": "To sign up as a new user, please enter the following information.",
+    "elements": [
+        { 
+            "id": "username",
+            "priority": 1,
+            "type": "input",
+            "inputType": "text",
+            "label":"Username",
+            "placeholder":"Enter username",
+            "value": "",
+            "minLength": "8",
+            "validityMessage":"Username is missing",
+            "required": true
+        },
+        { 
+            "id": "password",
+            "priority": 2,
+            "type": "input",
+            "inputType": "password",
+            "label":"Password",
+            "placeholder":"Enter password",
+            "value": "",
+            "pattern": "[a-zA-Z]{8}",
+            "title":"Eight alphabet letters only",
+            "minLength": "8",
+            "validityMessage":"8 alphabet letters only",
+            "required": true
+        },
+        { 
+            "id": "passwordConfirm",
+            "priority": 3,
+            "type": "input",
+            "inputType": "password",
+            "label":"Confirm Password",
+            "placeholder":"Confirm password",
+            "value": "",
+            "minLength": "8",
+            "validityMessage":"Must match password field above",
+            "required": true
+        },
+        {
+            "id": "age",
+            "priority": 5,
+            "hidden": true,
+            "type": "dropdown",
+            "label":"How old are you?",
+            "value":null,
+            "options": [
+                {
+                    "id":"15-21",
+                    "label":"15 - 21 years old",
+                    "value":"15-21"
+                },
+                {
+                    "id": "22-35",
+                    "label":"22 - 35 years old",
+                    "value":"22-35"
+                }, {
+                    "id": "36-42",
+                    "label":"36 - 42 years old",
+                    "value":"36-42"
+                },
+                {
+                    "id": "43>",
+                    "label":"43> years old",
+                    "value":"43>"
+                }
+            ]
+        },
+        { 
+            "id": "aboutYourself",
+            "priority": 6,
+            "hidden": true,
+            "type": "textarea",
+            "rows": 3,
+            "label":"How would you describe yourself?",
+            "value": ""
+        }
+    ]
+}

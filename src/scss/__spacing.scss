@@ -1,0 +1,79 @@
+@import "./_variables";
+
+@mixin input-padding($value: 5, $measure: "rem") {
+    padding: $value + #{$measure};
+}
+
+@mixin spacing-modifiers($orient, $spacing: 5, $measure: "rem") {
+    @for $i from 0 through $spacing {
+        @if ($orient == "vertical") {
+            .#{$orient}-space--#{$i} {
+                margin-bottom: $i+#{$measure};
+            }
+        } @else if ($orient == "horizontal") {
+            .#{$orient}-space--#{$i} {
+                margin-right: $i+#{$measure};
+            }
+        } @else if ( $orient == "padding" ) {
+            .#{$orient}--#{$i} {
+                padding: $i + #{$measure};
+            }
+        } @else if ( $orient == "padding-top" ){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "padding-right" ){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "padding-bottom" ){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "padding-left" ){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "margin"){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "margin-top"){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "margin-right"){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "margin-bottom"){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        } @else if ( $orient == "margin-left"){
+            .#{$orient}--#{$i} {
+                #{$orient}: $i + #{$measure};
+            }
+        }
+
+
+    }
+}
+
+@include spacing-modifiers("vertical", 5, "rem");
+@include spacing-modifiers("horizontal", 5, "rem");
+
+
+// Padding
+@include spacing-modifiers("padding", 5, "rem");
+@include spacing-modifiers("padding-top", 5, "rem");
+@include spacing-modifiers("padding-right", 5, "rem");
+@include spacing-modifiers("padding-bottom", 5, "rem");
+@include spacing-modifiers("padding-left", 5, "rem");
+
+// Margin
+@include spacing-modifiers("margin", 5, "rem");
+@include spacing-modifiers("margin-top", 5, "rem");
+@include spacing-modifiers("margin-right", 5, "rem");
+@include spacing-modifiers("margin-bottom", 5, "rem");
+@include spacing-modifiers("margin-left", 5, "rem");

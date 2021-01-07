@@ -1,0 +1,43 @@
+@import "./__variables.scss";
+@mixin font-style {
+    font-family: $body--font-family;
+    color: $body--color;
+    font-size: $body--font-size;
+    font-weight: $body--font-weight;
+    -webkit-font-smoothing: antialiased;
+}
+.text--truncated{
+    text-overflow: ellipsis;
+}
+.text--bold{
+    font-family: $body--font-bold;
+    font-weight: 700;
+}
+.text--italic{
+    font-style: italic;
+}
+.text--center{
+    text-align: center;
+}
+.label--success{
+    color: forestgreen;
+}
+.label--warning{
+    color: #cd1e0a;
+}
+.label--default{
+    color: initial;
+    min-height: 20px;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+$sizes: "small", "medium", "large";
+@mixin text-size-modifiers() {
+    @each $size in $sizes {
+        .text--#{$size}{
+            font-size: #{$size};
+        }
+    }
+}
+@include text-size-modifiers();

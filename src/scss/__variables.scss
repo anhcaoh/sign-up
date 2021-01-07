@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "Titillium";
+    src: url("Static/fonts/Titillium_Web/TitilliumWeb-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Titillium Light";
+    src: url("Static/fonts/Titillium_Web/TitilliumWeb-Light.ttf") format("truetype");
+}
+// @font-face {
+//     font-family: "Titillium SemiBold";
+//     src: url("Static/fonts/Titillium_Web/TitilliumWeb-SemiBold.ttf") format("truetype");
+// }
+@font-face {
+    font-family: "Titillium Bold";
+    src: url("Static/fonts/Titillium_Web/TitilliumWeb-Bold.ttf") format("truetype");
+}
+$body--font-family: "Titillium", sans-serif;
+$body--font-light: "Titillium Light", sans-serif;
+// $body--font-semibold: "Titillium SemiBold", sans-serif;
+$body--font-bold: "Titillium Bold", sans-serif;
+$body--color: #000000d9;
+$body--font-size: 14pt;
+$body--font-weight: normal;
+
+$radius: 0.25rem;
+$box-shadow: 10px 5px 5px #eee;
+$border--width: 1px;
+$border--color: #707070;
+$input--border: $border--width solid $border--color;
+
+$card--primary-background: #f2f5f8;

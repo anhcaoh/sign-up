@@ -1,0 +1,41 @@
+{
+  "name": "tst-signup",
+  "version": "1.0.0",
+  "description": "TST Sign Up Form",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --hot --open 'Google Chrome'",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "eslint": "^7.15.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-webpack-plugin": "^2.4.1",
+    "html-webpack-plugin": "^4.5.0",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1"
+  },
+  "dependencies": {
+    "moment": "^2.29.1",
+    "react": "16.8",
+    "react-dom": "16.8",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1"
+  }
+}

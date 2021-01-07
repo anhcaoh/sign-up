@@ -1,0 +1,6 @@
+input { 
+    vertical-align: bottom;
+    &.invalid{
+        border-color: #cd1e0a;
+    }
+}
