@@ -22,14 +22,11 @@ function SignUp( props ) {
     const checkCustomValidity = ( e, obj ) => {
         let _obj = Object.assign({}, obj);
         if( obj.id === "passwordConfirm" ){
-            const _passwordField = elements.filter(el => {
-                if (el.id === "password"){ 
-                    return el;
-                }
-            })[0];
-            const isValidField = _passwordField.value === obj.value;
-            e.target.setCustomValidity( !isValidField ? "Not matching password" : "" );
-            _obj.valid = isValidField;
+            const _passwordField = elements.filter(el => el.id === "password")[0];
+            const _isValidField = obj.value !== "" && // confirm password is not empty
+                                _passwordField.value === obj.value; //and matching _passwordField
+            e.target.setCustomValidity( !_isValidField ? "Not matching password" : "" );
+            _obj.valid = _isValidField;
         }
         return _obj;
     };
