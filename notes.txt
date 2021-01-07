@@ -15,16 +15,3 @@ for the username, password and confirm password respectively
 4. output to the user when both field match or dont match
 
 5. bonus would be to style the form
-
-Here is some feedback we got on someone’s unsuccessful assessment to give you an idea of what they’re looking for:
-
-“Yes, while this solves the problem, there are some patterns based on the version of reactjs chosen that are a little off. 
-He uses an onclick for the form submit instead of the form attribute onSubmit. 
-He wouldnt have needed to pass the state setter as arguments 
-if he had maintained his methods geared to update the state within scope. 
-He's using hooks which he could have better demonstrated with state management. 
-He's passing props to the App component when there are no props being used or passed in when the component is mounted. 
-This logic is over convoluted - (!!str1 && !!str2) 
-&& (str1.length === str2.length) && str1.includes(str2)
-
- These are some of the bigger issues here.”

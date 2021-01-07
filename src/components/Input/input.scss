@@ -3,4 +3,7 @@ input {
     &.invalid{
         border-color: #cd1e0a;
     }
+    &.valid{
+        border-color: forestgreen;
+    }
 }
