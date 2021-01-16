@@ -10,4 +10,9 @@ input {
     &.valid{
         border-color: forestgreen;
     }
+    &:read-only{
+        opacity: 0.8;
+        border-color: #00080027;
+        cursor: not-allowed;
+    }
 }

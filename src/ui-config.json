@@ -38,6 +38,7 @@
             "label":"Confirm Password",
             "placeholder":"Confirm password",
             "value": "",
+            "disablePaste": true,
             "minLength": "8",
             "validityMessage":"Must match password field above",
             "required": true
@@ -47,7 +48,7 @@
             "priority": 4,
             "type": "radio",
             "label":"What is your gender?",
-            "value": "male",
+            "value": "",
             "options": [
                 {
                     "id":"male",
@@ -71,7 +72,7 @@
             "hidden": false,
             "type": "dropdown",
             "label":"Your Age Group",
-            "value":null,
+            "value": "",
             "options": [
                 {
                     "id":"15-21",

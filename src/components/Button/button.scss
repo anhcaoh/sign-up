@@ -9,6 +9,10 @@
     &:disabled{
        cursor: not-allowed; 
     }
+    &.clear {
+        padding: .2rem .6rem;
+        border-width: 1px;
+    }
     &.clear:not(:disabled){
         padding: 0.16rem .5rem;
         background: transparent;
