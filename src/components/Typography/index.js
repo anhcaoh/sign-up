@@ -4,4 +4,5 @@ const H2 = (props) => { return <h2 className={props.className}>{props.children}<
 const Paragraph = (props) => { return <p className={props.className}>{props.children}</p>;};
 const Text = (props) => { return <span className={props.className}>{props.children}</span>;};
 const Label = (props) => { return <label htmlFor={props.for} className={props.className}>{props.children}</label>;};
-export { H1, H2, Paragraph, Text, Label };
+const Span = (props) => { return <span className={props.className}>{props.children}</span>;};
+export { H1, H2, Paragraph, Span, Text, Label };

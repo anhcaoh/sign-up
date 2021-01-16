@@ -1,10 +1,43 @@
 @import "Scss/_variables";
 
 .sign-up-form{
-    min-height: 30rem;
+    min-height: 20rem;
+    height: 80%;
     width: 20rem;
     padding: 1rem;
     background: #fff;
     border-radius: $radius;
+    .scrollbox{
+        height: calc(100% - 50px);
+        overflow: auto;
+    }
+    .call-to-actions{
+        height: 35px;
+        padding-top: 1rem;
+        border-top: $input--border;
+    }
+}
+.circle{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    z-index: 0;
+    position: absolute;
+    top: 0.5rem;
+}
+.brick{
+    width: 22rem;
+    height: 5rem;
+    z-index: 1;
+    position: absolute;
+    top: 3.5rem;
+    border: 1px solid #d4d3d330 !important;
+    background: rgb(251 251 251 / 29%) !important;
+}
+.glass{
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     box-shadow: $box-shadow;
+    background: #ffffff87;
+    border: 1px solid #eaeaea;
 }

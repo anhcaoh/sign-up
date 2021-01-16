@@ -5,6 +5,10 @@ import { Columns, Column, Row, Block, Flexbox } from "Components/Layout";
 import { H2, Label, Text } from "Components/Typography";
 import Form from "Components/Form";
 import Input from "Components/Input";
+import Textarea from "Components/Textarea";
+import Dropdown from "Components/Dropdown";
+import Radio from "Components/Radio";
+import Checkbox from "Components/Checkbox";
 import Button from "Components/Button";
 import "./signup.scss";
 
@@ -31,8 +35,7 @@ function SignUp( props ) {
         return _obj;
     };
 
-    const handleOnBlur = ( e, obj ) => {
-        
+    const handleOnValueChanged = ( e, obj ) => {
         let currentElOfElems = null;
         const _validity = (e.target && e.target.validity) || {};
         const _elementsWithValue = 
@@ -86,45 +89,89 @@ function SignUp( props ) {
     <Columns>
     <Column className="col-12">
         <Flexbox>
+        <div className="circle glass"></div>
         <Form id={id} 
             name="sign-up-form" 
-            className="sign-up-form"
-            onSubmit={handleOnSubmit} 
+            className="sign-up-form glass"
+            onSubmit={handleOnSubmit}
             noValidate={true}>
-            <H2 className="margin-top--0">{heading}</H2>
-            {isSubmitted ? <Label className="label--success">
-            Congratulations! You have successfully submitted as a new user.
-            </Label> : <Label>{label}</Label>}
-            <Block className="vertical-space--2 margin-top--2">
-                { ( elements && 
-                    elements.length && (
-                    elements.map((elem, index) => {
-                        return (<Block>
-                        <Label>{elem.label}</Label>
-                        <Input id={ elem.id || null }
-                        type={ elem.type || "text" }
-                        inputType={ elem.inputType || "text" }
-                        autoFocus={ index === 0 ? true : false }
-                        placeholder={ elem.placeholder || null }
-                        title={ elem.title || null }
-                        readOnly={ isSubmitted }
-                        defaultValue={ elem.value || "" }
-                        pattern={ elem.pattern || null }
-                        validation={ elem.validation || null }
-                        required={ elem.required || false }
-                        onBlurHandler={ handleOnBlur } />   
-                        <Label className={
-                            ["text--small", 
-                            (elem.valid === false) ? 
-                            "label--warning" : 
-                            "label--default"].join(" ").trim()}>
-                        {(elem.valid === false) ? 
-                        elem.validityMessage : "" }</Label>
-                        </Block>);    
-                    })
-                )) || null }
-            </Block>
-            <Block>
+            <Block className="scrollbox">
+                <H2 className="margin-top--0">{heading}</H2>
+                {isSubmitted ? <Label className="label--success">
+                Congratulations! You have successfully submitted as a new user.
+                </Label> : <Label>{label}</Label>}
+                <Block className="vertical-space--2 margin-top--2">
+                    { ( elements && 
+                        elements.length && (
+                        elements.map((elem, index) => {
+                            return (<><Block className="block">
+                            <Label>{elem.label}</Label>
+                    
+                            { elem.type === "input" && 
+                            <Input id={ elem.id || null }
+                            name={elem.name || null }
+                            type={ elem.inputType || elem.type || "text" }
+                            autoComplete={ "new-password" }
+                            autoFocus={ index === 0 ? true : false }
+                            placeholder={ elem.placeholder || null }
+                            title={ elem.title || null }
+                            readOnly={ isSubmitted }
+                            defaultValue={ elem.value || "" }
+                            minLength={ elem.minLength || null }
+                            maxLength={ elem.maxLength || null }
+                            min={ elem.min || null }
+                            max={ elem.max || null }
+                            pattern={ elem.pattern || null }
+                            validation={ elem.validation || null }
+                            required={ elem.required || false }
+                            onBlurHandler={ handleOnValueChanged } /> || null }
+                            
+                            {elem.type === "textarea" && 
+                            <Textarea id={elem.id || null }
+                            name={elem.name || null }
+                            type={ elem.type || "textarea" }
+                            value={elem.value} 
+                            onBlurHandler={ handleOnValueChanged }></Textarea> || null }
+
+                            {elem.type === "dropdown" && 
+                            <Dropdown 
+                            options={elem.options} 
+                            id={elem.id || null }
+                            name={elem.name || null }
+                            value={elem.value} 
+                            onBlurHandler={ handleOnValueChanged } /> || null } 
+                            
+                            { elem.type === "radio" && 
+                            <Radio 
+                            options={elem.options} 
+                            id={elem.id || null }
+                            name={elem.name || null }
+                            defaultValue={elem.value} 
+                            onBlurHandler={ handleOnValueChanged } /> || null }
+                            
+                            { elem.type === "checkbox" && 
+                            <Checkbox 
+                            options={elem.options} 
+                            id={elem.id || null }
+                            name={elem.name || null }
+                            defaultValue={elem.value} 
+                            onBlurHandler={ handleOnValueChanged } /> || null }                            
+
+                            <Label className={
+                                ["text--small label--validation", 
+                                (elem.valid === false) ? 
+                                "label--warning" : 
+                                "label--default"].join(" ").trim()}>
+                            {(elem.valid === false) ? 
+                            elem.validityMessage : "" }</Label>
+                            </Block>
+
+                            </>);    
+                        })
+                    )) || null }
+                </Block>
+                </Block>
+            <Block className="call-to-actions">
                 <Button className="clear" 
                 disabled={!hasAnyFieldValue || isSubmitted}
                 onClick={ handleReset }>

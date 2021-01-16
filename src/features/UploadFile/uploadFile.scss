@@ -1,0 +1,13 @@
+input[type=file] {
+    width: 0!important;
+    height: 0;
+    border: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    & + label {
+        display: inline-block;
+        margin: 0;
+    }
+}

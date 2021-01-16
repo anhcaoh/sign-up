@@ -1,5 +1,9 @@
+@import "Scss/__mixins";
 input { 
     vertical-align: bottom;
+    &:focus{
+        @include on-focus();
+    }
     &.invalid{
         border-color: #cd1e0a;
     }

@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 import { Label } from "Components/Typography";
-import store from "Store";
 import "./dropdown.scss";
+
 const Dropdown = (props) => { 
-    const _options = props.options || {};
-    const [value, setValue ] = useState(props.value);
-    const onChangeHanlder = (e) => {
-        const _storeState = store.getState();
-        const _maps = _storeState.maps || [];
-        const elementValueMaps = _maps.map(map => {
-            if( map.id === props.id){
-                const _value = e.target.value;
-                map.value = _value;
-                setValue( _value );
-            }   
-            return map;
+    const { name, id, label, value, options, onBlurHandler } = props;
+    const handleOnChange = (e) => {
+        const _newValueElement = Object.assign({}, props, {
+            value: e.target.value
         });
-        elementValueMaps && props.setMaps( elementValueMaps );
+        onBlurHandler && 
+        onBlurHandler( e, _newValueElement );
     };
     
     return (<>
-        <Label>{props.label}</Label>
-        <select id={props.id} name={props.name} 
+        <Label>{label}</Label>
+        <select id={id} name={name} 
         value={ value }
-        onChange={ onChangeHanlder }>
+        onChange={ handleOnChange }>
             <option selected={true} 
             value={null}>
             Select one</option>
-            {_options.map((option) => {
+            {options.map((option) => {
                 return (
                     <option id={option.id} 
                         value={ option.value }>

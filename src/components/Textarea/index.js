@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./textarea.scss";
 const Textarea = (props) => { 
-    const { type, inputType, defaultValue, className, onChangeHanlder, children } = props;
+    const { id, name, type, autoFocus, placeholder, 
+    rows, columns, minLength, maxLength, defaultValue, 
+    className, onBlurHandler, children } = props;
     const [value, setValue ] = useState(defaultValue || null);
-    const handleOnChange = (e) => {
-        setValue(e.target.value);
-        onChangeHanlder && onChangeHanlder( e );
+    useEffect(() => {
+        setValue(defaultValue);
+    }, [defaultValue]);
+    const validateValue = ( e ) => {
+        return e.target.checkValidity();
     };
+    const handleOnBlur = (e) => {
+        const _newValueElement = Object.assign({}, props, {
+            value: e.target.value,
+            "valid": validateValue( e )
+        });
+        onBlurHandler && 
+        onBlurHandler( e, _newValueElement );
+    };
+
+    
     return ( (type === "textarea" && 
-    <textarea 
-    type={inputType || type || "text"} 
-    autoComplete="new-password"
+    <textarea id={id} name={name}
+    type={"text"} 
     value={ value } 
     className={ ["textarea", className].join(" ").trim() }
-    onChange={ handleOnChange }
-    {...props}>{children}</textarea>) || null );
+    onBlur={ handleOnBlur }
+    autoFocus={autoFocus}
+    placeholder={placeholder}
+    rows={rows}
+    columns={columns}
+    minLength={minLength}
+    maxLength={maxLength}>{children}</textarea>) || null );
 };
 export default Textarea;

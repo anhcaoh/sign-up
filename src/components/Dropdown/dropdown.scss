@@ -1,0 +1,6 @@
+@import "Scss/__mixins";
+select{
+    &:focus{
+        @include on-focus();
+    }
+}

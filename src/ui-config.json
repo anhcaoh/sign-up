@@ -11,8 +11,9 @@
             "label":"Username",
             "placeholder":"Enter username",
             "value": "",
-            "minLength": "8",
-            "validityMessage":"Username is missing",
+            "minLength": 3,
+            "maxLength": 8,
+            "validityMessage":"Username is required",
             "required": true
         },
         { 
@@ -23,10 +24,10 @@
             "label":"Password",
             "placeholder":"Enter password",
             "value": "",
-            "pattern": "[a-zA-Z]{8}",
-            "title":"Eight alphabet letters only",
+            "pattern": "[a-zA-Z][0-1]{8}",
+            "title":"Eight alphabet letters and numbers only",
             "minLength": "8",
-            "validityMessage":"8 alphabet letters only",
+            "validityMessage":"8 alphabet letters and numbers only",
             "required": true
         },
         { 
@@ -42,26 +43,49 @@
             "required": true
         },
         {
+            "id": "gender",
+            "priority": 4,
+            "type": "radio",
+            "label":"What is your gender?",
+            "value": "male",
+            "options": [
+                {
+                    "id":"male",
+                    "label":"Male",
+                    "value":"male"
+                }, 
+                {
+                    "id": "female",
+                    "label":"Female",
+                    "value":"female"
+                }, {
+                    "id": "other",
+                    "label":"Other",
+                    "value":"other"
+                }
+            ]
+        },
+        {
             "id": "age",
             "priority": 5,
-            "hidden": true,
+            "hidden": false,
             "type": "dropdown",
-            "label":"How old are you?",
+            "label":"Your Age Group",
             "value":null,
             "options": [
                 {
                     "id":"15-21",
                     "label":"15 - 21 years old",
-                    "value":"15-21"
+                    "value":"15_21"
                 },
                 {
                     "id": "22-35",
                     "label":"22 - 35 years old",
-                    "value":"22-35"
+                    "value":"22_35"
                 }, {
                     "id": "36-42",
                     "label":"36 - 42 years old",
-                    "value":"36-42"
+                    "value":"36_42"
                 },
                 {
                     "id": "43>",
@@ -70,13 +94,56 @@
                 }
             ]
         },
+        {
+            "id": "hobbies",
+            "priority": 6,
+            "type": "checkbox",
+            "label":"What are your hobbies?",
+            "value": "soccer",
+            "options": [
+                {
+                    "id":"soccer",
+                    "label":"Soccer",
+                    "value":"soccer"
+                }, 
+                {
+                    "id": "videoGame",
+                    "label":"Video Game",
+                    "value":"videoGame"
+                }, {
+                    "id": "running",
+                    "label":"Running",
+                    "value":"running"
+                },
+                {
+                    "id": "reading",
+                    "label":"Reading",
+                    "value":"reading"
+                },
+                {
+                    "id": "travel",
+                    "label":"Travel",
+                    "value":"travel"
+                },
+                {
+                    "id": "cooking",
+                    "label":"Cooking",
+                    "value":"cooking"
+                },
+                {
+                    "id": "other",
+                    "label":"Other",
+                    "value":"other"
+                }
+            ]
+        },
         { 
             "id": "aboutYourself",
-            "priority": 6,
-            "hidden": true,
+            "priority": 7,
+            "hidden": false,
             "type": "textarea",
             "rows": 3,
-            "label":"How would you describe yourself?",
+            "label":"About Me",
             "value": ""
         }
     ]

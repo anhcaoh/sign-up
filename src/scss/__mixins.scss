@@ -1,0 +1,6 @@
+@import "Scss/__variables";
+@mixin on-focus{
+    border-color: $primary--color;
+    outline: none;
+    transition: border-color 0.125s ease-in;
+}
