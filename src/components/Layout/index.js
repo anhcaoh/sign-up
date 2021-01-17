@@ -1,7 +1,16 @@
 import React from "react";
 import "./layout.scss";
+const ContentEditable = (props) => {
+    return <Block className={props.className} 
+    id={props.id}
+    contentEditable={props.contentEditable}
+    onInput={ props.onInput} 
+    title={props.title}>{props.children}</Block>;
+};
 const Block = (props) => { 
-    return <div className={props.className}>{props.children}</div>;
+    return <div ref={props.ref} 
+    className={props.className} 
+    {...props}>{props.children}</div>;
 };
 const Row = (props) => { 
     return (
@@ -21,17 +30,16 @@ const Column = (props) => {
     </Block>);
 };
 const Card = (props) => { 
-    return (<Block className={ ["card", props.className].join(" ").trim() }>
+    return (<Block ref={props.ref} 
+        className={ ["card", props.className].join(" ").trim() }>
         {props.children}
     </Block>);
 };
 
 const Flexbox = (props) => { 
     return (<Block className={ ["flexbox", props.className].join(" ").trim() }>
-        {/* <Block> */}
             {props.children}
-        {/* </Block> */}
     </Block>);
 };
 
-export { Row, Columns, Column, Block, Card, Flexbox };
+export { Row, Columns, Column, Block, Card, Flexbox, ContentEditable };

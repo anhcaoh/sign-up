@@ -1,0 +1,33 @@
+@import "Scss/__mixins";
+table{
+    border-collapse: collapse;
+    border: 0 !important;
+    background: inherit !important;
+    color: inherit !important;
+    [contenteditable]{
+        white-space:nowrap;
+        border: 1px solid transparent;
+        padding: 0.15rem;
+        &:focus{
+            border-radius: $radius;
+            @include on-focus();
+        }
+    }
+    tr{ 
+        &:nth-child(even){background-color: #f9f9f9;}
+        &:hover {background-color: #eee;}
+        td, 
+        th{
+            text-align: left;
+            border: $input--border;
+            padding: 8px;
+        }
+        th{
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: $primary--color;
+            color: #f1f1f1;
+            border-color: #177cfa;
+        }
+    }
+}

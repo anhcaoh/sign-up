@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./textarea.scss";
 const Textarea = (props) => { 
-    const { id, name, type, autoFocus, placeholder, 
+    const { id, name, autoFocus, placeholder, 
     rows, columns, minLength, maxLength, defaultValue, 
     className, onBlurHandler, children } = props;
     const [value, setValue ] = useState(defaultValue || null);
@@ -21,8 +21,7 @@ const Textarea = (props) => {
     };
 
     
-    return ( (type === "textarea" && 
-    <textarea id={id} name={name}
+    return ( <textarea id={id} name={name}
     type={"text"} 
     value={ value } 
     className={ ["textarea", className].join(" ").trim() }
@@ -32,6 +31,6 @@ const Textarea = (props) => {
     rows={rows}
     columns={columns}
     minLength={minLength}
-    maxLength={maxLength}>{children}</textarea>) || null );
+    maxLength={maxLength}>{children}</textarea>);
 };
 export default Textarea;

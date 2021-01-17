@@ -72,6 +72,7 @@ function SignUp(props) {
     e.stopPropagation();
     console.log(elements);
     setSubmission(true);
+    window && window.scrollTo({top: 0, behavior: "smooth"});
   };
 
   const hasFieldsValue = () => {
@@ -91,7 +92,7 @@ function SignUp(props) {
         <Columns>
           <Column className="col-12">
             <Flexbox>
-              <div className="circle glass"></div>
+              {/* <div className="circle glass"></div> */}
               <Form
                 id={id}
                 name="sign-up-form"
@@ -239,9 +240,10 @@ const getSortedElems = (elems) => {
     .sort((a, b) => a.priority - b.priority)
     .filter((i) => !i.hidden);
 };
-const mapStateToProps = (state) => {
-  const _sortedElems = getSortedElems(state.elements);
-  return { ...state, elements: _sortedElems };
+const mapStateToProps = (state, {config}) => {//config from parent props
+    const _rest = config || state;
+    const _sortedElems = getSortedElems( _rest.elements );
+  return { ..._rest, elements: _sortedElems };
 };
 const mapDispatchToProps = { setElements, reset };
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,3 +1,4 @@
+@import "Scss/__variables";
 input[type=file] {
     width: 0!important;
     height: 0;
@@ -6,8 +7,22 @@ input[type=file] {
     overflow: hidden;
     position: absolute;
     z-index: -1;
-    & + label {
+    & ~ label {
         display: inline-block;
-        margin: 0;
+        margin: 0 0.5rem 0 0;
+    }
+}
+.upload-file-container {
+    .result-table, 
+    .result-json {
+        width: 1200px;
+        height: 25rem;
+        margin: 0.5rem auto;
+        overflow: auto;
+        display: block;
+        border: $input--border;
+        border-radius: $radius;
+        background: #3a3434;
+        color: #f1f1f1;
     }
 }
