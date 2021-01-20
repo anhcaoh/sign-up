@@ -16,11 +16,15 @@ module.exports = {
                 use: ["babel-loader"]
             },
             {
-                test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+                test: /\.(png|woff|woff2|eot|ttf)$/, 
                 loader: "url-loader",
                 options: {
                     limit: 100000
                 }
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack']
             },
             {
               test: /\.s[ac]ss$/,
@@ -39,6 +43,7 @@ module.exports = {
             Scss: path.resolve(__dirname, "src/scss/"),
             Store: path.resolve(__dirname, "src/store/"),
             Static: path.resolve(__dirname, "src/static/"),
+            Icons: path.resolve(__dirname, "src/static/icons")
         }
     },
     plugins: [

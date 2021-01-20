@@ -8,51 +8,51 @@
     @for $i from 0 through $spacing {
         @if ($orient == "vertical") {
             .#{$orient}-space--#{$i} {
-                margin-bottom: $i+#{$measure};
+                margin-bottom: ($i/2) + #{$measure};
             }
         } @else if ($orient == "horizontal") {
             .#{$orient}-space--#{$i} {
-                margin-right: $i+#{$measure};
+                margin-right: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "padding" ) {
             .#{$orient}--#{$i} {
-                padding: $i + #{$measure};
+                padding: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "padding-top" ){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "padding-right" ){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "padding-bottom" ){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "padding-left" ){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "margin"){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "margin-top"){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "margin-right"){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "margin-bottom"){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         } @else if ( $orient == "margin-left"){
             .#{$orient}--#{$i} {
-                #{$orient}: $i + #{$measure};
+                #{$orient}: ($i/2) + #{$measure};
             }
         }
 

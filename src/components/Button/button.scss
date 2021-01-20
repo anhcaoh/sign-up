@@ -1,16 +1,20 @@
 @import "Scss/__typography.scss";
-.button{
+.button, a.button{
     @include font-style();
-    padding: 0.35rem 0.65rem;
+    font-weight: bold;
+    padding: .36rem 0.65rem;
     cursor: pointer;
     border: none;
     text-decoration: none;
     border-radius: $radius;
+    background: transparent;
     &:disabled{
-       cursor: not-allowed; 
+       cursor: not-allowed;
+       border: 1px solid transparent;
+       background: #ebebeb;
+       color: #848484;
     }
     &.clear {
-        padding: .2rem .6rem;
         border-width: 1px;
     }
     &.clear:not(:disabled){
@@ -18,17 +22,18 @@
         border: 1px solid #262626;
         &:hover{
             color: initial;
-            opacity: 0.75;
+            background: #eee;
         }
     }
     &.primary:not(:disabled){ 
         background: #2a5298;
         color: #fff;
+        &:hover{
+            background: #1b4285;
+        }
     }
     &:focus{ outline: 0;}
     &:hover:not(:disabled){
-        opacity: 0.8;
-        // color: rgba(255,255,255, 0.75);
         text-decoration: none;
         -webkit-box-shadow:inset 0 10px 20px rgba(255,255,255, 0.10);
         -moz-box-shadow: inset 0 10px 20px rgba(255,255,255, 0.10);
@@ -43,4 +48,19 @@
         color: #fff;
     }
 }
-
+.button__group{
+    display: inline-block;
+    .button { 
+        display: inline;
+        border-radius: 0;
+        margin: 0 -1px 0 0;
+        &:first-child:not(:only-of-type){
+            border-bottom-left-radius: $radius !important;
+            border-top-left-radius: $radius !important;
+        } 
+        &:last-child:not(:only-of-type){
+            border-bottom-right-radius: $radius !important;
+            border-top-right-radius: $radius !important;
+        }
+    }
+}

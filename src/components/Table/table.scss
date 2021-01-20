@@ -10,11 +10,12 @@ table{
         padding: 0.15rem;
         &:focus{
             border-radius: $radius;
+            background: $bg--secondary;
             @include on-focus();
         }
     }
     tr{ 
-        &:nth-child(even){background-color: #f9f9f9;}
+        &:nth-child(even){background-color: $bg--secondary;}
         &:hover {background-color: #eee;}
         td, 
         th{
@@ -23,11 +24,10 @@ table{
             padding: 8px;
         }
         th{
+            font-weight: normal;
             padding-top: 12px;
             padding-bottom: 12px;
-            background-color: $primary--color;
-            color: #f1f1f1;
-            border-color: #177cfa;
+            background-color: #f1f1f1;
         }
     }
 }

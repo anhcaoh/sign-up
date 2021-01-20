@@ -25,6 +25,9 @@ select{
         width: 100%;
     }
 }
+svg{
+    vertical-align: text-bottom;
+}
 label{
     margin-bottom: 0.5rem;
     display: block;
@@ -32,8 +35,18 @@ label{
 label[for]{
     margin-right: 0.5rem;
 }
+.line-height--2{
+    line-height: 2;
+}
+.float--left{
+    float: left;
+}
 .float--right{
-    float: right
+    float: right;
+}
+.clearfix{
+    clear: both;
+    overflow: auto;
 }
 .absolute{
     position: absolute;

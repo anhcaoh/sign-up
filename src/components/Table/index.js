@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ContentEditable } from "Components/Layout";
 import "./table.scss";
 const Table = (props) => {
-  const { data, onInputHandler } = props || {};
+  const { data } = props || {};
   const { elements } = data || {};
   const [ headings, setHeadings ] = useState([]);
   useEffect(() => {
@@ -23,6 +23,10 @@ const Table = (props) => {
   const handleOnInput = (e, obj) => {
     const { id, innerText:value } = e.target;
     const { current, heading } = obj;
+    e.target.setAttribute("data-edited", true);
+    e.target.classList.toggle("label--primary", (id === current.id));
+    e.target.offsetParent.classList.toggle("bg--secondary", (id === current.id));
+    
     if(id === current.id){
       current[heading] = value;
     }
@@ -52,14 +56,15 @@ const Table = (props) => {
                         <td key={elem.id}>
                             <ContentEditable 
                             contentEditable={true} 
+                            value={elem[heading]}
                             id={elem.id}
                             onInput={(e) => handleOnInput(e, { heading, ...{current: elem} }) }
-                            title={elem.id + ":" + (JSON.stringify(elem[heading]) || "") }>
+                            title={elem.id + ":" + 
+                              ( Array.isArray(elem[heading]) ? 
+                              JSON.stringify(elem[heading]) : elem[heading] ) }>
                               { Array.isArray(elem[heading]) ?
-                                "[...]" : 
-                               typeof(elem[heading]) === "string" ?
-                                elem[heading] : 
-                               typeof(elem[heading]) === "number" ?
+                                "[... Edit via JSON]" : typeof(elem[heading]) === "string" ?
+                                elem[heading] : typeof(elem[heading]) === "number" ?
                                 Number.parseInt(elem[heading]) : null }
                             </ContentEditable>
                           </td>

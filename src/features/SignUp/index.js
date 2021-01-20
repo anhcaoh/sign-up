@@ -191,7 +191,7 @@ function SignUp(props) {
                                 className={[
                                   "text--small label--validation",
                                   elem.valid === false
-                                    ? "label--warning"
+                                    ? "label--danger"
                                     : "label--default",
                                 ]
                                   .join(" ")

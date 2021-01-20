@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "baseUrl": ".",
+        "paths":{
+            "Components": ["src/components/"],
+            "Features": ["src/Features/"],
+            "Src": ["src/"],
+            "Scss": ["src/scss/"],
+            "Store": ["src/store/"],
+            "Static": ["src/static/"]
+        }
+    },
+    "exclude": []
+}

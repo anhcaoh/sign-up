@@ -22,18 +22,33 @@
 .text--right{
     text-align: right;
 }
+.label--primary {
+    color: $primary--color;
+}
 .label--success{
     color: forestgreen;
 }
 .label--warning{
+    color: #ff9966;
+}
+.label--danger{
     color: #cd1e0a;
 }
 .label--default{
     color: initial;
     min-height: 20px;
 }
+.bg--secondary{
+    background: $bg--secondary;
+}
+.icon--white{
+    fill: #fff;
+}
 .uppercase{
     text-transform: uppercase;
+}
+h1,h2,h3,h4{
+    font-weight: 500;
 }
 $sizes: "small", "medium", "large";
 @mixin text-size-modifiers() {

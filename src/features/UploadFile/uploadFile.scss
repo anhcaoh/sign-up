@@ -9,15 +9,24 @@ input[type=file] {
     z-index: -1;
     & ~ label {
         display: inline-block;
-        margin: 0 0.5rem 0 0;
     }
 }
 .upload-file-container {
+    .file-desc{
+        border-right: 0 !important;
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+    }
+    .delete-file{
+        border-left: 0 !important;
+        margin-right: 0.5rem;
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+    }
     .result-table, 
     .result-json {
-        width: 1200px;
-        height: 25rem;
-        margin: 0.5rem auto;
+        width: 100%;
+        height: -webkit-fill-available;
         overflow: auto;
         display: block;
         border: $input--border;
