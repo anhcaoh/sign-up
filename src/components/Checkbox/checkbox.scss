@@ -21,8 +21,9 @@
   display: inline-block;
   transform: rotate(45deg);
   height: 13px;
-  width: 6px;
-  margin-left: 30%;
+  width: 7px;
+  margin-left: 4px;
+  margin-top: 1px;
   border-bottom: 3px solid $primary--color;
   border-right: 3px solid $primary--color;
 }
@@ -57,7 +58,7 @@
   .checkbox__control {
     display: block;
     width: 1.2rem;
-    height: 1em;
+    height: 1.2rem;
     border-radius: $radius;
     border: 0.1em solid currentColor;
     transform: translateY(0em);

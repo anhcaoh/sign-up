@@ -45,7 +45,7 @@ const Checkbox = (props) => {
   };
   return (
     <>
-      {options.map((option) => {
+      {options?.map((option) => {
         return (
           <>
             <Label className="checkbox" for={id + "-" + option.id}>
@@ -60,7 +60,7 @@ const Checkbox = (props) => {
                   defaultChecked={ 
                     (checkedDefaultValue.indexOf(option.value) !== -1) || //check against list
                     (option.value === defaultValue) } //or string
-                  onChangeHanlder={handleOnChange}
+                    onChangeHandler={handleOnChange}
                 />
                 <Span className="checkbox__control"></Span>
               </Span>

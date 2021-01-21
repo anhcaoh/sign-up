@@ -26,7 +26,7 @@
             "value": "",
             "pattern": "[a-zA-Z][0-1]{8}",
             "title":"Eight alphabet letters and numbers only",
-            "minLength": "8",
+            "minLength": 8,
             "validityMessage":"8 alphabet letters and numbers only",
             "required": true
         },
@@ -39,7 +39,7 @@
             "placeholder":"Confirm password",
             "value": "",
             "disablePaste": true,
-            "minLength": "8",
+            "minLength": 8,
             "validityMessage":"Must match password field above",
             "required": true
         },

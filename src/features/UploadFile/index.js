@@ -11,9 +11,14 @@ import IconCode from "Icons/code-24px.svg";
 import IconTable from "Icons/table_chart-24px.svg";
 import uiConfig from "Src/ui-config.json"; //can also pass down via props or HTTP GET
 import "./uploadFile.scss";
-const uiConfigMaster = JSON.parse( JSON.stringify(uiConfig) );
+const uiConfigMaster = JSON.parse(JSON.stringify(uiConfig));
 Modal.setAppElement("#upload-file-modal");
-const UploadFile = ({ onUploadedFile, accept }) => {
+const UploadFile = ({
+  onUploadedFile,
+  accept,
+  showFormHandler,
+  isShowingForm,
+}) => {
   // const customStyles = {
   //   content: {
   //     top: "50%",
@@ -83,13 +88,11 @@ const UploadFile = ({ onUploadedFile, accept }) => {
     });
     reader.readAsBinaryString(file);
   };
-
   const handleOnUploadedFile = (e) => {
     e.preventDefault();
     setIsOpenResult(false);
     onUploadedFile && onUploadedFile(e, result);
   };
-
   const getEncodedUri = (result, type) => {
     let encodedUri = "";
     if (type === "csv") {
@@ -127,7 +130,6 @@ const UploadFile = ({ onUploadedFile, accept }) => {
     }
     return encodedUri;
   };
-
   const downloadFile = (content, type) => {
     let encodedUri = getEncodedUri(content || result, type);
     const fileNameCopyExt =
@@ -138,31 +140,42 @@ const UploadFile = ({ onUploadedFile, accept }) => {
     a.click(); //stimulate click event to download file
     window.URL.revokeObjectURL(encodedUri); //clean up URL after used;
   };
-
+  const useSampleFile = () => {
+    setIsUsingSample(true);
+    setResult(uiConfig);
+    setIsOpenResult(true);
+    showFormHandler(false);
+  };
   const FileDesc = ({ className, onClick }) => {
     return (
-      <Span className={className} onClick={onClick}>
-        {file.name}&nbsp;
-        <small className="text--small">({file.size / 1000 + " KB"})</small>
+      <Span
+        className={className}
+        title={"Edit Configuration of " + file.name}
+        onClick={onClick}
+      >
+        <Span>
+          {file.name}&nbsp;
+          <small className="text--small">({file.size / 1000 + " KB"})</small>
+        </Span>
       </Span>
     );
   };
-
   const FileDescButton = ({ className }) => {
     return (
       (file.name && (
-        <Block className="button__group">
-          <FileDesc
-            onClick={() => setIsOpenResult(!isOpenResult)}
-            className={["button clear file-desc", className].join(" ").trim()}
-          />
-          <DeleteFileButton className="clear delete-file" />
-        </Block>
+        <>
+          <Block className="button__group">
+            <FileDesc
+              onClick={() => setIsOpenResult(!isOpenResult)}
+              className={["button clear file-desc", className].join(" ").trim()}
+            />
+            <DeleteFileButton className="clear delete-file" />
+          </Block>
+        </>
       )) ||
       null
     );
   };
-
   const DeleteFileButton = ({ className }) => {
     return (
       (file.name && (
@@ -181,12 +194,7 @@ const UploadFile = ({ onUploadedFile, accept }) => {
       null
     );
   };
-
-  const UploadFileButton = ({
-    showFileButton,
-    showSampleButton,
-    errorPlacement,
-  }) => {
+  const UploadFileButton = ({ showFileButton, errorPlacement }) => {
     return (
       <>
         <Block>
@@ -207,16 +215,24 @@ const UploadFile = ({ onUploadedFile, accept }) => {
 
           {(showFileButton && <FileDescButton />) || null}
 
-          {(showSampleButton && !file.name && (
+          {(!file.name && !result && (
             <Button
-              className="clear uppercase"
-              onClick={() => {
-                setIsUsingSample(!isUsingSample);
-                setResult(!isUsingSample ? uiConfig : null);
-                setIsOpenResult(!isOpenResult);
-              }}
+              className="clear uppercase margin-right--1"
+              onClick={useSampleFile}
             >
               Use Sample
+            </Button>
+          )) ||
+            null}
+          {(isShowingForm && !file.name && result && (
+            <Button
+              className="clear uppercase margin-right--1"
+              onClick={() => {
+                showFormHandler(false);
+                setIsOpenResult(true);
+              }}
+            >
+              <Span>Edit Configuration</Span>
             </Button>
           )) ||
             null}
@@ -224,7 +240,6 @@ const UploadFile = ({ onUploadedFile, accept }) => {
       </>
     );
   };
-
   const ErrorMessage = ({ className }) => {
     return (
       (!result || fileReadError) && (
@@ -242,28 +257,8 @@ const UploadFile = ({ onUploadedFile, accept }) => {
     return (
       <>
         <Block className="call-to-actions margin-bottom--1 float--right">
-          <Button
-            disabled={!result ? true : false}
-            onClick={handleOnUploadedFile}
-            className="primary uppercase"
-          >
-            Submit
-          </Button>
-          <Button
-            disabled={!result ? true : false}
-            onClick={() => {
-              if (isUsingSample) {
-                setResult(uiConfigMaster);
-              } else {
-                readFile(file);
-              }
-            }}
-            className="clear margin-left--1 uppercase"
-          >
-            Reset
-          </Button>
           {(result && result.elements && (
-            <Block className="button__group margin-right--1 margin-left--1">
+            <Block className="button__group">
               <Button
                 className="clear uppercase"
                 title={
@@ -295,6 +290,27 @@ const UploadFile = ({ onUploadedFile, accept }) => {
           )) ||
             null}
           <Button
+            disabled={!result ? true : false}
+            onClick={() => {
+              if (isUsingSample) {
+                setResult(uiConfigMaster);
+              } else {
+                readFile(file);
+              }
+            }}
+            className="clear margin-left--1 margin-right--1  uppercase"
+          >
+            Reset
+          </Button>
+
+          <Button
+            disabled={!result ? true : false}
+            onClick={handleOnUploadedFile}
+            className="primary uppercase"
+          >
+            Submit
+          </Button>
+          {/* <Button
             className="clear uppercase"
             onClick={() => {
               if (isUsingSample) {
@@ -308,12 +324,11 @@ const UploadFile = ({ onUploadedFile, accept }) => {
             }}
           >
             close
-          </Button>
+          </Button> */}
         </Block>
       </>
     );
   };
-
   const ResultCard = () => {
     return (
       <>
@@ -339,7 +354,7 @@ const UploadFile = ({ onUploadedFile, accept }) => {
 
   return (
     <Block className="upload-file-container">
-      <UploadFileButton showSampleButton={true} showFileButton={true} />
+      <UploadFileButton showFileButton={true} />
       {(isOpenResult && (
         <Card className="glass">
           <CallToActions />

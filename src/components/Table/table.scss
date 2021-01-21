@@ -17,6 +17,9 @@ table{
     tr{ 
         &:nth-child(even){background-color: $bg--secondary;}
         &:hover {background-color: #eee;}
+        td input {
+            width: max-content !important;
+        }
         td, 
         th{
             text-align: left;

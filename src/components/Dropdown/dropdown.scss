@@ -1,5 +1,6 @@
 @import "Scss/__mixins";
 select{
+    width: max-content !important;
     appearance: none;
     -webkit-appearance: none;
     background-image:

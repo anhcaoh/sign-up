@@ -160,7 +160,7 @@ function SignUp(props) {
                                   id={elem.id || null}
                                   name={elem.name || null}
                                   value={elem.value}
-                                  onBlurHandler={handleOnValueChanged}
+                                  onChangeHandler={handleOnValueChanged}
                                 />
                               )) ||
                                 null}

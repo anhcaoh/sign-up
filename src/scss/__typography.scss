@@ -38,6 +38,10 @@
     color: initial;
     min-height: 20px;
 }
+.input--primary{
+    color: $primary--color;
+    border-color: $primary--color;
+}
 .bg--secondary{
     background: $bg--secondary;
 }

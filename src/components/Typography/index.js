@@ -7,5 +7,6 @@ const Paragraph = (props) => { return <p className={props.className}>{props.chil
 const Text = (props) => { return <span className={props.className}>{props.children}</span>;};
 const Label = (props) => { return <label htmlFor={props.for} className={props.className} 
                                 onClick={props.onClick}>{props.children}</label>;};
-const Span = (props) => { return <span className={props.className} onClick={props.onClick}>{props.children}</span>;};
+const Span = (props) => { return <span className={props.className} title={props.title} 
+                                onClick={props.onClick}>{props.children}</span>;};
 export { H1, H2, H3, H4, Paragraph, Span, Text, Label };

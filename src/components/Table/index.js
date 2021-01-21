@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ContentEditable } from "Components/Layout";
+import CellEditable from "./CellEditable";
 import "./table.scss";
 const Table = (props) => {
   const { data } = props || {};
-  const { elements } = data || {};
+  // const { elements } = data || {};
+  const [ elements, setElements ] = useState((data && data.elements) || []);
   const [ headings, setHeadings ] = useState([]);
   useEffect(() => {
     let _headings = [];
@@ -20,16 +22,21 @@ const Table = (props) => {
     setHeadings(_headings);
   }, [elements]);
 
-  const handleOnInput = (e, obj) => {
-    const { id, innerText:value } = e.target;
+  const handleOnChangeElement = (e, obj) => {
+    const { id, value } = e.target;
     const { current, heading } = obj;
+    const currentHeadingId = current.id + ":" + heading;
     e.target.setAttribute("data-edited", true);
-    e.target.classList.toggle("label--primary", (id === current.id));
-    e.target.offsetParent.classList.toggle("bg--secondary", (id === current.id));
-    
-    if(id === current.id){
-      current[heading] = value;
-    }
+    e.target.classList.toggle("label--primary", (currentHeadingId === id));
+    e.target.classList.toggle("input--primary", (currentHeadingId === id));
+    const _elements = elements.map(elem => {
+      const elemHeadingId = elem.id + ":" + heading;
+      if ( elemHeadingId === currentHeadingId ){
+        elem[heading] = value;
+      }
+      return elem;
+    });
+    setElements( _elements );
   };
 
   return (
@@ -54,11 +61,18 @@ const Table = (props) => {
                     headings.map((heading) => {
                       return (
                         <td key={elem.id}>
-                            <ContentEditable 
+                            <CellEditable element={elem} 
+                            heading={heading} 
+                            value={elem[heading]}
+                            onChangeHandler={(e) => {
+                              handleOnChangeElement(e, { heading, ...{current: elem} });
+                            }}
+                            />
+                            {/* <ContentEditable 
                             contentEditable={true} 
                             value={elem[heading]}
                             id={elem.id}
-                            onInput={(e) => handleOnInput(e, { heading, ...{current: elem} }) }
+                            onInput={(e) => handleOnChangeElement(e, { heading, ...{current: elem} }) }
                             title={elem.id + ":" + 
                               ( Array.isArray(elem[heading]) ? 
                               JSON.stringify(elem[heading]) : elem[heading] ) }>
@@ -66,7 +80,7 @@ const Table = (props) => {
                                 "[... Edit via JSON]" : typeof(elem[heading]) === "string" ?
                                 elem[heading] : typeof(elem[heading]) === "number" ?
                                 Number.parseInt(elem[heading]) : null }
-                            </ContentEditable>
+                            </ContentEditable> */}
                           </td>
                       );
                     })}

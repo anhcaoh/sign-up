@@ -17,7 +17,7 @@ const Input = (props) => {
     defaultValue,
     autoFocus,
     autoComplete,
-    onChangeHanlder,
+    onChangeHandler,
     onBlurHandler,
     onKeyPressHandler,
     onFocusHandler,
@@ -52,7 +52,7 @@ const Input = (props) => {
       value: _value,
       valid: validateValue(e),
     });
-    onChangeHanlder && onChangeHanlder(e, _newValueElement);
+    onChangeHandler && onChangeHandler(e, _newValueElement);
   };
 
   const handleOnFocus = (e) => {
@@ -79,6 +79,7 @@ const Input = (props) => {
   return (
     <>
       {((type === "text" ||
+        type === "number" ||
         type === "password" ||
         type === "radio" ||
         type === "checkbox" ||
@@ -102,7 +103,7 @@ const Input = (props) => {
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           title={title}
-          min={min}
+          min={min || (type === "number" ? 0 : null) }
           max={max}
           minLength={minLength}
           maxLength={maxLength}

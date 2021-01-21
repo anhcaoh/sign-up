@@ -14,7 +14,7 @@ const Radio = (props) => {
   };
   return (
     <>
-      {options.map((option) => {
+      {options?.map((option) => {
         return (
           <Label className="radio">
             <Span className="radio__input">
@@ -26,7 +26,7 @@ const Radio = (props) => {
                 readOnly={readOnly}
                 defaultValue={option.value}
                 defaultChecked={option.value === defaultValue}
-                onChangeHanlder={handleOnChange}
+                onChangeHandler={handleOnChange}
               />
               <Span className="radio__control"></Span>
             </Span>

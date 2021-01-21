@@ -3,24 +3,25 @@ import { Label } from "Components/Typography";
 import "./dropdown.scss";
 
 const Dropdown = (props) => { 
-    const { name, id, label, value, options, onBlurHandler } = props;
+    const { name, id, label, value, options, onChangeHandler, showLabel, hideSelectOne } = props;
     const handleOnChange = (e) => {
         const _newValueElement = Object.assign({}, props, {
             value: e.target.value
         });
-        onBlurHandler && 
-        onBlurHandler( e, _newValueElement );
+        onChangeHandler && 
+        onChangeHandler( e, _newValueElement );
     };
     
     return (<>
-        <Label>{label}</Label>
-        <select id={id} name={name} 
+        {showLabel && <Label>{label}</Label> || null}
+        <select id={id} name={name || id} 
         value={ value }
         onChange={ handleOnChange }>
+            {hideSelectOne === true ? null : 
             <option selected={true} 
             value={null}>
-            Select one</option>
-            {options.map((option) => {
+            Select one</option> }
+            {options?.map((option) => {
                 return (
                     <option id={option.id} 
                         value={ option.value }>
