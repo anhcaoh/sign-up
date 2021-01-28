@@ -20,6 +20,8 @@
     &.clear:not(:disabled){
         background: transparent;
         border: 1px solid #262626;
+        padding-top: calc(0.36rem - 1px);
+        padding-bottom: calc(0.36rem - 1px);
         &:hover{
             color: initial;
             background: #eee;
@@ -32,7 +34,10 @@
             background: #1b4285;
         }
     }
-    &:focus{ outline: 0;}
+    &:focus{ 
+        outline: 0px;
+        border-color: #0475ff;
+    }
     &:hover:not(:disabled){
         text-decoration: none;
         -webkit-box-shadow:inset 0 10px 20px rgba(255,255,255, 0.10);

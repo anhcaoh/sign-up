@@ -1,8 +1,8 @@
 import React from "react";
 import "./layout.scss";
 const ContentEditable = (props) => {
-    return <Block className={props.className} 
-    id={props.id}
+    return <Block id={props.id} 
+    className={props.className} 
     contentEditable={props.contentEditable}
     onInput={ props.onInput} 
     title={props.title}>{props.children}</Block>;

@@ -26,13 +26,13 @@
     color: $primary--color;
 }
 .label--success{
-    color: forestgreen;
+    color: $success--color;
 }
 .label--warning{
-    color: #ff9966;
+    color: $warning--color;
 }
 .label--danger{
-    color: #cd1e0a;
+    color: $danger--color;
 }
 .label--default{
     color: initial;

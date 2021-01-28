@@ -78,7 +78,8 @@ const Input = (props) => {
 
   return (
     <>
-      {((type === "text" ||
+      {((("undefined" === typeof(type)) ||
+        type === "text" ||
         type === "number" ||
         type === "password" ||
         type === "radio" ||

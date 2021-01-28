@@ -5,6 +5,7 @@
 
 body {
     @include font-style();
+    margin: 0;
     background: #f1f1f1;
 } 
 *,
@@ -32,9 +33,9 @@ label{
     margin-bottom: 0.5rem;
     display: block;
 }
-label[for]{
-    margin-right: 0.5rem;
-}
+// label[for]{
+//     margin-right: 0.5rem;
+// }
 .line-height--2{
     line-height: 2;
 }

@@ -15,16 +15,31 @@ table{
         }
     }
     tr{ 
-        &:nth-child(even){background-color: $bg--secondary;}
-        &:hover {background-color: #eee;}
-        td input {
-            width: max-content !important;
+        // &:nth-child(even){background-color: $bg--secondary;}
+        &:hover {background-color: #f1f1f1;}
+        td select {
+            cursor: pointer;
+            &:focus{
+                background-image: none !important;
+                border-color: none !important;
+            }
+        }
+        td input,
+        td select {
+            border-radius: 0;
+            padding: 0.25rem;
+            border-color: transparent;
+            background: transparent;
+            min-width: max-content !important;
         }
         td, 
         th{
             text-align: left;
             border: $input--border;
             padding: 8px;
+        }
+        td {
+            padding: 0;
         }
         th{
             font-weight: normal;

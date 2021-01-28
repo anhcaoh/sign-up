@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { ContentEditable } from "Components/Layout";
+// import { ContentEditable } from "Components/Layout";
+// import ReactTooltip from "react-tooltip";
 import CellEditable from "./CellEditable";
 import "./table.scss";
 const Table = (props) => {
-  const { data } = props || {};
-  // const { elements } = data || {};
+  const { headers, hasHeaders, data } = props || {};
   const [ elements, setElements ] = useState((data && data.elements) || []);
   const [ headings, setHeadings ] = useState([]);
   useEffect(() => {
-    let _headings = [];
-    elements && 
-    elements.forEach(elem => {
-      let _keys = Object.keys(elem);
-      _keys.forEach(key => {
-        const _keyIndex = _headings.indexOf(key);
-        if( _keyIndex === -1 ){
-          _headings.push(key);
-        };
+    if( !hasHeaders && !headers?.length ){
+      let _headings = [];
+      elements && 
+      elements.forEach(elem => {
+        let _keys = Object.keys(elem);
+        _keys.forEach(key => {
+          const _keyIndex = _headings.indexOf(key);
+          if( _keyIndex === -1 ){
+            _headings.push(key);
+          };
+        });
       });
-    });
-    setHeadings(_headings);
+      setHeadings(_headings);
+    } else if( hasHeaders && headers?.length ) {
+      setHeadings(headers);
+    }
   }, [elements]);
 
   const handleOnChangeElement = (e, obj) => {
     const { id, value } = e.target;
     const { current, heading } = obj;
-    const currentHeadingId = current.id + ":" + heading;
+    const currentHeadingId = current.id + "_" + heading;
     e.target.setAttribute("data-edited", true);
     e.target.classList.toggle("label--primary", (currentHeadingId === id));
     e.target.classList.toggle("input--primary", (currentHeadingId === id));
     const _elements = elements.map(elem => {
-      const elemHeadingId = elem.id + ":" + heading;
+      const elemHeadingId = elem.id + "_" + heading;
       if ( elemHeadingId === currentHeadingId ){
         elem[heading] = value;
       }
@@ -40,7 +44,12 @@ const Table = (props) => {
   };
 
   return (
-    <><table id={props.id} 
+    <>
+    {/* <ReactTooltip 
+    place="left" 
+    type="info" 
+    effect="solid" /> */}
+    <table id={props.id}
       className={["table", props.className].join(" ").trim()}>
         <thead>
           <tr>
@@ -54,18 +63,25 @@ const Table = (props) => {
         </thead>
         <tbody>
           {elements &&
-            elements.map((elem) => {
+            elements.map((elem, index) => {
               return (
                 <tr>
                   {headings &&
-                    headings.map((heading) => {
+                    headings.map((heading, headerIndex) => {
                       return (
-                        <td key={elem.id}>
-                            <CellEditable element={elem} 
-                            heading={heading} 
-                            value={elem[heading]}
+                        <td key={hasHeaders ? headerIndex : elem.id} 
+                            title={hasHeaders ? headerIndex : (elem.id + ":" + heading)}>
+                            <CellEditable 
+                            id={hasHeaders ? headerIndex : (elem.id + "_" + heading)}
+                            index={index}
+                            element={elem} 
+                            heading={hasHeaders ? headerIndex : heading}
+                            headingLength={headings?.length}
+                            value={elem[hasHeaders ? headerIndex : heading]}
                             onChangeHandler={(e) => {
-                              handleOnChangeElement(e, { heading, ...{current: elem} });
+                              handleOnChangeElement(e, {
+                                heading: (hasHeaders ? headerIndex : heading), 
+                                ...{current: elem} });
                             }}
                             />
                             {/* <ContentEditable 

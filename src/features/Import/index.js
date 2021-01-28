@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { readString } from "react-papaparse";
 import { Block, Card } from "Components/Layout";
 import { H2, H4, Span, Label } from "Components/Typography";
 import Table from "Components/Table";
@@ -9,35 +11,29 @@ import IconDownload from "Icons/cloud_download-24px.svg";
 import IconUpload from "Icons/cloud_upload-24px.svg";
 import IconCode from "Icons/code-24px.svg";
 import IconTable from "Icons/table_chart-24px.svg";
-import uiConfig from "Src/ui-config.json"; //can also pass down via props or HTTP GET
-import "./uploadFile.scss";
+import uiConfig from "Src/ui-config.json"; // can also pass down via props or HTTP GET
+import "./import.scss";
 const uiConfigMaster = JSON.parse(JSON.stringify(uiConfig));
-Modal.setAppElement("#upload-file-modal");
-const UploadFile = ({
-  onUploadedFile,
-  accept,
-  showFormHandler,
-  isShowingForm,
-}) => {
-  // const customStyles = {
-  //   content: {
-  //     top: "50%",
-  //     left: "50%",
-  //     right: "auto",
-  //     bottom: "auto",
-  //     border: 0,
-  //     borderRadius: 0,
-  //     padding: 0,
-  //     background: "none",
-  //     transform: "translate(-50%, -50%)",
-  //   },
-  // };
+Modal.setAppElement("#import-file-modal");
+
+const Import = ({ onImportedFile, accept, showFormHandler, isShowingForm }) => {
   const [isUsingSample, setIsUsingSample] = useState(false);
   const [isOpenResult, setIsOpenResult] = useState(false);
   const [file, setFile] = useState({});
+  const [headers, setHeaders] = useState([]);
   const [result, setResult] = useState(null);
   const [fileReadError, setFileReadError] = useState(null);
   const [viewResultAs, setViewResultAs] = useState("table");
+
+  const handleOnChange = (e, File) => {
+    const _file = (e?.target?.files && e.target.files[0]) || File;
+    if (_file && _file.size) {
+      readFile(_file);
+      setIsOpenResult(true);
+    } else {
+      setIsOpenResult(false);
+    }
+  };
 
   const handleOnClick = (e) => {
     if ((file && file.name) || result) {
@@ -46,15 +42,7 @@ const UploadFile = ({
       handleOnChange(e);
     }
   };
-  const handleOnChange = (e) => {
-    const _file = e.target.files[0];
-    if (_file && _file.size) {
-      readFile(_file);
-      setIsOpenResult(true);
-    } else {
-      setIsOpenResult(false);
-    }
-  };
+
   const readFile = (file) => {
     const reader = new FileReader();
     reader.addEventListener("error", () => {
@@ -67,7 +55,15 @@ const UploadFile = ({
       let _resultJSON = null;
       const tryParseJsonString = (str) => {
         try {
-          _resultJSON = JSON.parse(str);
+          if(file.type === "text/csv"){
+            const _result = readString(str);
+            const _headers = _result?.data[0]; //get set headers
+            setHeaders(_headers);
+            _result?.data.shift();//remove headers from rows
+            _resultJSON = {"elements":_result?.data};
+          } else if (file.type === "application/json"){
+            _resultJSON = JSON.parse(str);
+          }
         } catch (e) {
           const errorMessage = "Error occurred parsing file " + file.name;
           console.error(errorMessage);
@@ -88,11 +84,13 @@ const UploadFile = ({
     });
     reader.readAsBinaryString(file);
   };
-  const handleOnUploadedFile = (e) => {
+
+  const handleOnImportedFile = (e) => {
     e.preventDefault();
     setIsOpenResult(false);
-    onUploadedFile && onUploadedFile(e, result);
+    onImportedFile && onImportedFile(e, result);
   };
+
   const getEncodedUri = (result, type) => {
     let encodedUri = "";
     if (type === "csv") {
@@ -130,15 +128,16 @@ const UploadFile = ({
     }
     return encodedUri;
   };
+
   const downloadFile = (content, type) => {
     let encodedUri = getEncodedUri(content || result, type);
     const fileNameCopyExt =
-      ((file.name && file.name.split(".")[0] + "_copy.") || "sample.") + type;
-    const a = document.createElement("a"); //create temp a tag
-    a.href = encodedUri; //assign href
-    a.download = fileNameCopyExt; //assign file name
-    a.click(); //stimulate click event to download file
-    window.URL.revokeObjectURL(encodedUri); //clean up URL after used;
+      ((file.name && file.name.split(".")[0] + " copy.") || "sample.") + type;
+    const a = document.createElement("a"); // create temp a tag
+    a.href = encodedUri; // assign href
+    a.download = fileNameCopyExt; // assign file name
+    a.click(); // stimulate click event to download file
+    window.URL.revokeObjectURL(encodedUri); // clean up URL after used;
   };
   const useSampleFile = () => {
     setIsUsingSample(true);
@@ -146,6 +145,20 @@ const UploadFile = ({
     setIsOpenResult(true);
     showFormHandler(false);
   };
+  const ErrorMessage = ({ className }) => {
+    return (
+      (!result || fileReadError) && (
+        <Label
+          className={["label--warning text--center", className]
+            .join(" ")
+            .trim()}
+        >
+          {fileReadError && fileReadError.error && fileReadError.message}
+        </Label>
+      )
+    );
+  };
+
   const FileDesc = ({ className, onClick }) => {
     return (
       <Span
@@ -154,12 +167,14 @@ const UploadFile = ({
         onClick={onClick}
       >
         <Span>
+          
           {file.name}&nbsp;
           <small className="text--small">({file.size / 1000 + " KB"})</small>
         </Span>
       </Span>
     );
   };
+
   const FileDescButton = ({ className }) => {
     return (
       (file.name && (
@@ -176,6 +191,7 @@ const UploadFile = ({
       null
     );
   };
+
   const DeleteFileButton = ({ className }) => {
     return (
       (file.name && (
@@ -194,39 +210,74 @@ const UploadFile = ({
       null
     );
   };
-  const UploadFileButton = ({ showFileButton, errorPlacement }) => {
+
+  const DropZone = ({
+    accept,
+    errorPlacement,
+    onDropFileHandler,
+    onClickFileHandler,
+  }) => {
+    const onDrop = useCallback((acceptedFiles) => {
+      if (acceptedFiles?.length && onDropFileHandler)
+        onDropFileHandler(null, acceptedFiles[0]);
+    }, []);
+    const {
+      getRootProps,
+      getInputProps,
+      isDragActive,
+      isDragReject,
+    } = useDropzone({ onDrop, accept: accept, noClick: true, multiple: false });
+
+    return (
+      <div
+        className={[
+          "dropzone",
+          isDragActive ? "dropzone__accept" : "",
+          isDragReject ? "dropzone__reject" : "",
+        ]
+          .join(" ")
+          .trim()}
+        {...getRootProps()}
+        tabIndex={null}
+      >
+        <input
+          {...getInputProps()}
+          type="file"
+          accept={accept}
+          id="upload-file"
+          onChange={onDropFileHandler}
+          onClick={onClickFileHandler}
+        />
+        <Label for="upload-file" className="button primary uppercase">
+          <IconUpload className="icon icon--white margin-right--1" />
+          Import
+        </Label>
+        <ErrorMessage className={errorPlacement === "left" ? "float--left" : ""}
+        />
+      </div>
+    );
+  };
+
+  const ImportButton = ({ showFileButton, errorPlacement }) => {
     return (
       <>
-        <Block>
-          <input
-            type="file"
+        <Block id="import-header" className="import-header glass">
+          <DropZone
             accept={accept}
-            id="upload-file"
-            onChange={handleOnChange}
-            onClick={handleOnClick}
+            errorPlacement={errorPlacement}
+            onDropFileHandler={handleOnChange}
+            onClickFileHandler={handleOnClick}
           />
-          <Label for="upload-file" className="button primary uppercase">
-            <IconUpload className="icon icon--white margin-right--1" />
-            Upload
-          </Label>
-          <ErrorMessage
-            className={errorPlacement === "left" ? "float--left" : ""}
-          />
-
           {(showFileButton && <FileDescButton />) || null}
-
           {(!file.name && !result && (
-            <Button
-              className="clear uppercase margin-right--1"
-              onClick={useSampleFile}
-            >
+            <Button className="clear uppercase" onClick={useSampleFile}>
               Use Sample
             </Button>
           )) ||
             null}
           {(isShowingForm && !file.name && result && (
             <Button
-              className="clear uppercase margin-right--1"
+              className="clear uppercase"
               onClick={() => {
                 showFormHandler(false);
                 setIsOpenResult(true);
@@ -240,19 +291,7 @@ const UploadFile = ({
       </>
     );
   };
-  const ErrorMessage = ({ className }) => {
-    return (
-      (!result || fileReadError) && (
-        <Label
-          className={["label--warning text--center", className]
-            .join(" ")
-            .trim()}
-        >
-          {fileReadError && fileReadError.error && fileReadError.message}{" "}
-        </Label>
-      )
-    );
-  };
+
   const CallToActions = () => {
     return (
       <>
@@ -273,7 +312,8 @@ const UploadFile = ({
                   )
                 }
               >
-                <IconDownload /> {viewResultAs === "json" ? "json" : "csv"}
+                <IconDownload />
+                &nbsp;Download {viewResultAs === "json" ? "json" : "csv"}
               </Button>
               <Button
                 className="clear uppercase"
@@ -302,10 +342,9 @@ const UploadFile = ({
           >
             Reset
           </Button>
-
           <Button
             disabled={!result ? true : false}
-            onClick={handleOnUploadedFile}
+            onClick={handleOnImportedFile}
             className="primary uppercase"
           >
             Submit
@@ -329,6 +368,7 @@ const UploadFile = ({
       </>
     );
   };
+
   const ResultCard = () => {
     return (
       <>
@@ -336,6 +376,8 @@ const UploadFile = ({
           <Table
             id="file-result-table"
             className={"result-table"}
+            headers={headers}
+            hasHeaders={headers?.length ? true : false}
             data={result}
           />
         ) : viewResultAs === "json" ? (
@@ -347,17 +389,18 @@ const UploadFile = ({
           >
             {JSON.stringify(result, null, 2)}
           </Textarea>
-        ) : null}
+        ) : (
+          <Block />
+        )}
       </>
     );
   };
 
   return (
-    <Block className="upload-file-container">
-      <UploadFileButton showFileButton={true} />
+    <Block className="import-container">
+      <ImportButton showFileButton={true} />
       {(isOpenResult && (
         <Card className="glass">
-          <CallToActions />
           {(file.name && (
             <H2 className="margin-top--0 margin-bottom--0 display--inline-block">
               Form Configuration
@@ -370,10 +413,14 @@ const UploadFile = ({
             </H2>
           )) ||
             null}
-          <H4 className="margin--0 margin-bottom--1 clearfix">
-            Click to make field changes below as needed
-            {(file.name && <FileDesc className="float--right" />) || null}
-          </H4>
+          <CallToActions />
+          {(file.name && (
+            <H4 className="margin--0 margin-bottom--1 clearfix">
+              Make field changes below as needed
+              {/* {(file.name && <FileDesc className="float--right" />) || null} */}
+            </H4>
+          )) ||
+            null}
           <ResultCard />
         </Card>
       )) ||
@@ -382,4 +429,4 @@ const UploadFile = ({
   );
 };
 
-export default UploadFile;
+export default Import;
