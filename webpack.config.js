@@ -38,12 +38,12 @@ module.exports = {
     },
     resolve: {
         alias: {
-            Components: path.resolve(__dirname, "src/components/"),
-            Features: path.resolve(__dirname, "src/Features/"),
-            Src: path.resolve(__dirname, "src/"),
-            Scss: path.resolve(__dirname, "src/scss/"),
-            Store: path.resolve(__dirname, "src/store/"),
-            Static: path.resolve(__dirname, "src/static/"),
+            Components: path.resolve(__dirname, "src/components"),
+            Features: path.resolve(__dirname, "src/features"),
+            Src: path.resolve(__dirname, "src"),
+            Scss: path.resolve(__dirname, "src/scss"),
+            Store: path.resolve(__dirname, "src/store"),
+            Static: path.resolve(__dirname, "src/static"),
             Icons: path.resolve(__dirname, "src/static/icons")
         }
     },
