@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "anhcaoh@gmail.com",
   "license": "ISC",
+  "engines": {
+    "node": "15.x"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/eslint-parser": "^7.12.1",
