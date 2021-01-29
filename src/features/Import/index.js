@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import Modal from "react-modal";
 import { readString } from "react-papaparse";
 import { Block, Card } from "Components/Layout";
 import { H2, H4, Span, Label } from "Components/Typography";
 import Table from "Components/Table";
 import Textarea from "Components/Textarea";
 import Button from "Components/Button";
-import Modal from "react-modal";
 import IconDownload from "Icons/cloud_download-24px.svg";
 import IconUpload from "Icons/cloud_upload-24px.svg";
 import IconCode from "Icons/code-24px.svg";
@@ -15,7 +15,6 @@ import uiConfig from "Src/ui-config.json"; // can also pass down via props or HT
 import "./import.scss";
 const uiConfigMaster = JSON.parse(JSON.stringify(uiConfig));
 Modal.setAppElement("#import-file-modal");
-
 const Import = ({ onImportedFile, accept, showFormHandler, isShowingForm }) => {
   const [isUsingSample, setIsUsingSample] = useState(false);
   const [isOpenResult, setIsOpenResult] = useState(false);
