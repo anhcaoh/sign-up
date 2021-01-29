@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack']
+                use: ["@svgr/webpack"]
             },
             {
               test: /\.s[ac]ss$/,
@@ -50,6 +51,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "src", "index.html")
         }),
-        new ESLintPlugin()
+        new ESLintPlugin(),
+        new CaseSensitivePathsPlugin()
     ]
 };

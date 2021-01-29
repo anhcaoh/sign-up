@@ -23,6 +23,7 @@
     "@babel/preset-react": "^7.12.7",
     "@svgr/webpack": "^5.5.0",
     "babel-loader": "^8.2.2",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.15.0",
     "eslint-plugin-react": "^7.21.5",
@@ -35,7 +36,6 @@
   },
   "dependencies": {
     "immutability-helper": "^3.1.1",
-    "module-alias": "^2.2.2",
     "react": "16.8",
     "react-dom": "16.8",
     "react-draggable": "^4.4.3",
@@ -48,13 +48,5 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.1"
-  },
-  "_moduleAliases": {
-    "Components": "src/components",
-    "Features": "src/Features",
-    "Src": "src",
-    "Scss": "src/scss",
-    "Store": "src/store",
-    "Static": "src/static"
   }
 }
