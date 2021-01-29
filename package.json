@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "immutability-helper": "^3.1.1",
+    "module-alias": "^2.2.2",
     "react": "16.8",
     "react-dom": "16.8",
     "react-draggable": "^4.4.3",
@@ -46,5 +47,13 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.1"
+  },
+  "_moduleAliases": {
+    "Components": "src/components",
+    "Features": "src/Features",
+    "Src": "src",
+    "Scss": "src/scss",
+    "Store": "src/store",
+    "Static": "src/static"
   }
 }
