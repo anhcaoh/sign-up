@@ -20,7 +20,7 @@ const Import = ({ onImportedFile, accept, showFormHandler, isShowingForm }) => {
   const [isUsingSample, setIsUsingSample] = useState(false);
   const [isOpenResult, setIsOpenResult] = useState(false);
   const [file, setFile] = useState({});
-  const [headers, setHeaders] = useState([]);
+  const [headers, setHeaders] = useState(null);
   const [result, setResult] = useState(null);
   const [fileReadError, setFileReadError] = useState(null);
   const [viewResultAs, setViewResultAs] = useState("table");
@@ -62,6 +62,7 @@ const Import = ({ onImportedFile, accept, showFormHandler, isShowingForm }) => {
             _result?.data.shift();//remove headers from rows
             _resultJSON = {"elements":_result?.data};
           } else if (file.type === "application/json"){
+            setHeaders(null);
             _resultJSON = JSON.parse(str);
           }
         } catch (e) {

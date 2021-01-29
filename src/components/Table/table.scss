@@ -15,6 +15,16 @@ table{
         }
     }
     tr{ 
+        > th:first-child { padding-left: 1.75rem; }
+        & > td:first-child { 
+            padding-left: 23px;
+        }
+        &:hover > td:first-child{
+            padding-left: unset;
+            border-left: 3rem solid #eaeaea;
+        }
+        &.react-draggable{
+        }
         // &:nth-child(even){background-color: $bg--secondary;}
         &:hover {background-color: #f1f1f1;}
         td select {

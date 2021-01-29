@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { ContentEditable } from "Components/Layout";
 // import ReactTooltip from "react-tooltip";
+import Draggable from "react-draggable";
 import CellEditable from "./CellEditable";
 import "./table.scss";
 const Table = (props) => {
@@ -65,6 +66,12 @@ const Table = (props) => {
           {elements &&
             elements.map((elem, index) => {
               return (
+                <Draggable 
+                axis="y"
+                grid={[25, 25]}
+                onDrag={(e, ui) => {
+                  console.log(e, ui.deltaY);
+                }}>
                 <tr>
                   {headings &&
                     headings.map((heading, headerIndex) => {
@@ -76,7 +83,7 @@ const Table = (props) => {
                             index={index}
                             element={elem} 
                             heading={hasHeaders ? headerIndex : heading}
-                            headingLength={headings?.length}
+                            rowsCount={elements?.length}
                             value={elem[hasHeaders ? headerIndex : heading]}
                             onChangeHandler={(e) => {
                               handleOnChangeElement(e, {
@@ -100,7 +107,7 @@ const Table = (props) => {
                           </td>
                       );
                     })}
-                </tr>
+                </tr></Draggable>
               );
             })}
         </tbody>

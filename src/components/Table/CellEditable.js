@@ -4,7 +4,7 @@ import Input from "Components/Input";
 import Dropdown from "Components/Dropdown";
 // import ReactTooltip from "react-tooltip";
 
-const CellEditable = ({ id, className, value, element, heading, headingLength, onChangeHandler }) => {
+const CellEditable = ({ id, className, value, element, heading, rowsCount, onChangeHandler }) => {
   const typeDropdown = [
     { value: "input", id: "input", label: "Input" },
     { value: "textarea", id: "textarea", label: "Textarea" },
@@ -19,8 +19,8 @@ const CellEditable = ({ id, className, value, element, heading, headingLength, o
     { value: "number", id: "number", label: "Number" },
     { value: null, id: null, label: "" }
   ];
-  const newHeadingList = new Array(headingLength).fill(null);
-  const priorityDropdown = newHeadingList?.map((key, index) => {
+  const rowsCountList = new Array(rowsCount || 10).fill(null);
+  const priorityDropdown = rowsCountList?.map((key, index) => {
     return  { value: index+1, id: index+1, label: index+1 };
   });
   const booleanDropdown = [
@@ -99,7 +99,7 @@ const CellEditable = ({ id, className, value, element, heading, headingLength, o
             type="text"
             id={id}
             defaultValue={element[heading]}
-            onChangeHandler={(e) => {
+            onChangeHandler={e => {
               const value = e.target.value.toLowerCase();
               if( value === "true" || value === "false" ){
                 e.target.value = value;
