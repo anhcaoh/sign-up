@@ -1,3 +1,4 @@
+import "module-alias/register";
 import React, { useState } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
