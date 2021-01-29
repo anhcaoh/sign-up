@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -51,7 +50,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "src", "index.html")
         }),
-        new ESLintPlugin(),
-        new CaseSensitivePathsPlugin()
+        new ESLintPlugin()
     ]
 };
