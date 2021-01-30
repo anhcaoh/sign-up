@@ -24,6 +24,9 @@ table{
             border-left: 3rem solid #eaeaea;
         }
         &.react-draggable{
+            &.react-dragging{
+                background: #eaeaea;
+            }
         }
         // &:nth-child(even){background-color: $bg--secondary;}
         &:hover {background-color: #f1f1f1;}

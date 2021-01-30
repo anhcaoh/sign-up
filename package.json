@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --hot --open 'Google Chrome'",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "start:wp": "webpack serve --hot --open 'Google Chrome'",
+    "build:dev": "webpack --mode development",
+    "build:wp": "webpack --mode production",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p $PORT"
   },
   "keywords": [],
   "author": "anhcaoh@gmail.com",
@@ -26,26 +29,26 @@
     "css-loader": "^5.0.1",
     "eslint": "^7.15.0",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-webpack-plugin": "^2.4.1",
+    "html-webpack-plugin": "^4.5.0",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
     "immutability-helper": "^3.1.1",
-    "react": "16.8",
-    "react-dom": "16.8",
+    "next": "^10.0.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-draggable": "^4.4.3",
-    "react-dropzone": "^11.2.4",
     "react-modal": "^3.12.1",
     "react-papaparse": "^3.11.1",
     "react-redux": "^7.2.2",
     "react-tooltip": "^4.2.13",
     "redux": "^4.0.5",
     "webpack": "^4.44.2",
-    "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "^3.11.1",
-    "eslint-webpack-plugin": "^2.4.1",
-    "html-webpack-plugin": "^4.5.0"
+    "webpack-cli": "^4.3.1"
   }
 }

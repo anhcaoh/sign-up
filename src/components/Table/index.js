@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // import { ContentEditable } from "Components/Layout";
 // import ReactTooltip from "react-tooltip";
 import Draggable from "react-draggable";
@@ -8,6 +8,7 @@ const Table = (props) => {
   const { headers, hasHeaders, data } = props || {};
   const [ elements, setElements ] = useState((data && data.elements) || []);
   const [ headings, setHeadings ] = useState([]);
+  const tableRef = useState(null);
   useEffect(() => {
     if( !hasHeaders && !headers?.length ){
       let _headings = [];
@@ -50,7 +51,8 @@ const Table = (props) => {
     place="left" 
     type="info" 
     effect="solid" /> */}
-    <table id={props.id}
+    <table id={props.id} 
+      ref={tableRef}
       className={["table", props.className].join(" ").trim()}>
         <thead>
           <tr>
@@ -68,9 +70,14 @@ const Table = (props) => {
               return (
                 <Draggable 
                 axis="y"
-                grid={[25, 25]}
+                grid={[35, 35]}
                 onDrag={(e, ui) => {
-                  console.log(e, ui.deltaY);
+                  const currentRow = e.target.offsetParent;
+                  if(ui.deltaY === 35){
+                    console.log(currentRow);
+                  }
+                  e.target.offsetParent.classList += (" react-dragging");
+                  console.log(currentRow, ui.deltaY);
                 }}>
                 <tr>
                   {headings &&
